@@ -81,9 +81,8 @@ public class PluginManager {
 		Plugin			ip = null;
 
 		//purging all previously loaded plugins
-		if (PlugIt.vPlugins != null) {
+		if (PlugIt.vPlugins.size() != 0) {
 			unload();
-			PlugIt.vPlugins = null;
 		}
 
 		//configuration file not empty? then load the plugins!
@@ -119,12 +118,7 @@ public class PluginManager {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
-			
-			//if plugins are buggy or don't check out, clean up
-			if (PlugIt.vPlugins != null && PlugIt.vPlugins.size() == 0)
-				PlugIt.vPlugins = null;
 		}
 
 		ip = null;
@@ -147,12 +141,11 @@ public class PluginManager {
 	 */
 	public int unload() {
 		System.out.println("Unloading plugins.");
-		if (PlugIt.vPlugins != null) {
+		if (PlugIt.vPlugins.size() > 0) {
 			PlugIt.vPlugins.removeAllElements();
-			PlugIt.vPlugins = null;
 		}
 		System.out.println("Plugins unloaded.");
-		return 0;
+		return PlugIt.vPlugins.size();
 	}
 
 	/**
@@ -160,10 +153,11 @@ public class PluginManager {
 	 * @return Number of plug-ins reloaded.
 	 */
 	public int reload() {
-		int iPluginsLoaded = 0;
+		System.out.println("Reloading plugins.");
 		if (unload() == 0)
-			iPluginsLoaded = load();
-		return iPluginsLoaded;
+			load();
+		System.out.println("Plugins reloaded.");
+		return PlugIt.vPlugins.size();
 	}
 
 }

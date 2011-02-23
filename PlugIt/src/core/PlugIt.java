@@ -11,7 +11,7 @@ import java.util.Vector;
  */
 public class PlugIt {
 
-	protected static Vector <Plugin> vPlugins = null;
+	protected static Vector <Plugin> vPlugins = new Vector <Plugin> ();
 
 	/**
 	 * @param args
