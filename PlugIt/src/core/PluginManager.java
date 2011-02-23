@@ -21,7 +21,6 @@ import xmlutils.XMLUtils;
 public class PluginManager {
 
 	private String sPluginsDir = null;
-	private Vector <Plugin> vPlugins = null;
 
 	/**
 	 * Class constructor
@@ -82,9 +81,9 @@ public class PluginManager {
 		Plugin			ip = null;
 
 		//purging all previously loaded plugins
-		if (vPlugins != null) {
+		if (PlugIt.vPlugins != null) {
 			unload();
-			vPlugins = null;
+			PlugIt.vPlugins = null;
 		}
 
 		//configuration file not empty? then load the plugins!
@@ -111,9 +110,9 @@ public class PluginManager {
 					//adding the plugin if it checks out
 					if (implementsInt(ip.getClass().getInterfaces())) {
 						//creating the instance if not defined before
-						if (vPlugins == null)
-							vPlugins = new Vector <Plugin> ();
-						vPlugins.add(ip);
+						if (PlugIt.vPlugins == null)
+							PlugIt.vPlugins = new Vector <Plugin> ();
+						PlugIt.vPlugins.add(ip);
 						System.out.println("Plugin loaded: " + ip.getName());
 					}
 
@@ -124,8 +123,8 @@ public class PluginManager {
 			}
 			
 			//if plugins are buggy or don't check out, clean up
-			if (vPlugins != null && vPlugins.size() == 0)
-				vPlugins = null;
+			if (PlugIt.vPlugins != null && PlugIt.vPlugins.size() == 0)
+				PlugIt.vPlugins = null;
 		}
 
 		ip = null;
@@ -139,7 +138,7 @@ public class PluginManager {
 		urls = null;
 		cl = null;
 		cls = null;
-		return vPlugins.size();
+		return PlugIt.vPlugins.size();
 	}
 
 	/**
@@ -148,9 +147,9 @@ public class PluginManager {
 	 */
 	public int unload() {
 		System.out.println("Unloading plugins.");
-		if (vPlugins != null) {
-			vPlugins.removeAllElements();
-			vPlugins = null;
+		if (PlugIt.vPlugins != null) {
+			PlugIt.vPlugins.removeAllElements();
+			PlugIt.vPlugins = null;
 		}
 		System.out.println("Plugins unloaded.");
 		return 0;
