@@ -17,10 +17,14 @@ public class PlugIt {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		PluginManager pm = new PluginManager("C:\\job\\workspace\\PlugIt\\plugins\\");
+		test("C:\\job\\workspace\\PlugIt\\plugins\\");
+	}
+
+	public static void test(String sPluginsDir) {
+		PluginManager pm = new PluginManager(sPluginsDir);
 		pm.load();
 		if (vPlugins.size() > 0) {
-			
+
 		}
 		pm.unload();
 		pm = null;
