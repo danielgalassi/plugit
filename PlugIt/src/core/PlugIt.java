@@ -12,7 +12,7 @@ import java.util.Vector;
 public class PlugIt {
 
 	protected static Vector <Plugin> vPlugins = null;
-	
+
 	/**
 	 * @param args
 	 */
