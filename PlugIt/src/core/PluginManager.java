@@ -160,4 +160,9 @@ public class PluginManager {
 		return PlugIt.vPlugins.size();
 	}
 
+	public void listPlugins() {
+		for (int i=0; i<PlugIt.vPlugins.size(); i++)
+			System.out.println(PlugIt.vPlugins.get(i).getName());
+	}
+
 }
