@@ -27,6 +27,11 @@ public class PlugIt {
 		}
 	}
 
+	/**
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public static String getHTMLResults(int i) {
 		String sHTMLres = "";
 		if (i < vPlugins.size())
@@ -38,13 +43,22 @@ public class PlugIt {
 
 	/**
 	 * 
+	 * @return
+	 */
+	public static int size() {
+		return vPlugins.size();
+	}
+	
+	/**
+	 * 
 	 * @param sPluginsDir
 	 */
 	public static void test(String sPluginsDir) {
 		PluginManager pm = new PluginManager(sPluginsDir);
 		pm.load();
 		run();
-		getHTMLResults(0);
+		for (int i=0; i<size(); i++)
+			getHTMLResults(0);
 		pm.unload();
 		pm = null;
 	}
