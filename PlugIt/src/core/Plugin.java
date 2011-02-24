@@ -13,7 +13,6 @@ public interface Plugin {
 	public String getName();
 	public String getDescription();
 	public String getStatus();
-	public String getResultsDesc();
 	public boolean passed();
 	public void reset();
 	public void run();

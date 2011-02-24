@@ -22,6 +22,7 @@ public class PlugIt {
 				vPlugins.get(i).reset();
 			System.out.println(vPlugins.get(i).getStatus());
 			vPlugins.get(i).run();
+			System.out.println(vPlugins.get(i).passed());
 			System.out.println(vPlugins.get(i).getStatus());
 		}
 	}
