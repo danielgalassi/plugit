@@ -29,9 +29,10 @@ public class PlugIt {
 
 	public static String getHTMLResults(int i) {
 		String sHTMLres = "";
-		System.out.println(vPlugins.get(i).getName());
-		System.out.println(vPlugins.get(i).getDescription());
-		System.out.println(vPlugins.get(i).passed());
+		if (i < vPlugins.size())
+		sHTMLres = "<td>" + vPlugins.get(i).getName() + "</td>" +
+					"<td>" + vPlugins.get(i).getDescription() + "</td>" +
+					"<td>" + vPlugins.get(i).passed() + "</td>";
 		return sHTMLres;
 	}
 
