@@ -27,6 +27,14 @@ public class PlugIt {
 		}
 	}
 
+	public static String getHTMLResults(int i) {
+		String sHTMLres = "";
+		System.out.println(vPlugins.get(i).getName());
+		System.out.println(vPlugins.get(i).getDescription());
+		System.out.println(vPlugins.get(i).passed());
+		return sHTMLres;
+	}
+
 	/**
 	 * 
 	 * @param sPluginsDir
@@ -35,6 +43,7 @@ public class PlugIt {
 		PluginManager pm = new PluginManager(sPluginsDir);
 		pm.load();
 		run();
+		getHTMLResults(0);
 		pm.unload();
 		pm = null;
 	}
