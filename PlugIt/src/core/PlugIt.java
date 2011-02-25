@@ -32,13 +32,17 @@ public class PlugIt {
 	 * @param i
 	 * @return
 	 */
-	public static String getHTMLResults(int i) {
-		String sHTMLres = "";
-		if (i < vPlugins.size())
-		sHTMLres = "<td>" + vPlugins.get(i).getName() + "</td>" +
-					"<td>" + vPlugins.get(i).getDescription() + "</td>" +
-					"<td>" + vPlugins.get(i).passed() + "</td>";
-		return sHTMLres;
+	public static Vector <String> getResults(int i) {
+		Vector <String> vResults = null;
+		
+		if (i < vPlugins.size()) {
+			vResults = new Vector <String> ();
+			vResults.add(vPlugins.get(i).getName());
+			vResults.add(vPlugins.get(i).getDescription());
+			vResults.add(vPlugins.get(i).passed()+ "");
+		}
+
+		return vResults;
 	}
 
 	/**
@@ -58,7 +62,7 @@ public class PlugIt {
 		pm.load();
 		run();
 		for (int i=0; i<size(); i++)
-			getHTMLResults(0);
+			getResults(0);
 		pm.unload();
 		pm = null;
 	}
