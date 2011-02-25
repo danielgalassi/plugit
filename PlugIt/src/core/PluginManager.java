@@ -80,7 +80,8 @@ public class PluginManager {
 		URL[]			urls = null;
 		ClassLoader		cl = null;
 		Class			cls = null;
-		Plugin			ip = null;
+		//Plugin			ip = null;
+		Object			ip = null;
 
 		//purging all previously loaded plugins
 		if (PlugIt.vPlugins.size() != 0) {
@@ -108,15 +109,20 @@ public class PluginManager {
 					urls = new URL[]{uJAR};
 					cl = new URLClassLoader(urls);
 					cls = cl.loadClass(sPackage + "." + sPlugin);
-					ip = (Plugin)cls.newInstance();
+					//ip = (Plugin) cls.newInstance();
+					ip = cls.newInstance();
 
 					//adding the plugin if it checks out
 					if (implementsInt(ip.getClass().getInterfaces())) {
 						//creating the instance if not defined before
 						if (PlugIt.vPlugins == null)
-							PlugIt.vPlugins = new Vector <Plugin> ();
+							PlugIt.vPlugins = new Vector <Object> ();
 						PlugIt.vPlugins.add(ip);
-						System.out.println("Plugin loaded: " + ip.getName());
+						System.out.println("Plugin loaded: " + 
+								ip.getClass().getMethod("getName") + ".");
+						System.out.println("Plugin loaded2: " + 
+								ip.getClass().getName());
+								//ip.getName());
 					}
 
 				} catch (Exception e) {
@@ -166,7 +172,15 @@ public class PluginManager {
 
 	public void listPlugins() {
 		for (int i=0; i<PlugIt.vPlugins.size(); i++)
-			System.out.println(PlugIt.vPlugins.get(i).getName());
+			try {
+				System.out.println(PlugIt.vPlugins.get(0).getClass().getMethod("getName"));
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 }

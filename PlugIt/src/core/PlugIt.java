@@ -11,7 +11,7 @@ import java.util.Vector;
  */
 public class PlugIt {
 
-	protected static Vector <Plugin> vPlugins = new Vector <Plugin> ();
+	protected static Vector <Object> vPlugins = new Vector <Object> ();
 	protected PluginManager pm = null;
 
 
@@ -21,12 +21,13 @@ public class PlugIt {
 	public //static 
 	void run() {
 		for (int i=0; i < vPlugins.size(); i++) {
-			if (!vPlugins.get(i).getStatus().matches("Ready"))
-				vPlugins.get(i).reset();
-			System.out.println(vPlugins.get(i).getStatus());
-			vPlugins.get(i).run();
-			System.out.println(vPlugins.get(i).passed());
-			System.out.println(vPlugins.get(i).getStatus());
+//			if (!(vPlugins.get(i)).getStatus().matches("Ready"))
+//				vPlugins.get(i).reset();
+//			System.out.println(vPlugins.get(i).getStatus());
+//			vPlugins.get(i).run();
+//			System.out.println(vPlugins.get(i).passed());
+//			System.out.println(vPlugins.get(i).getStatus());
+			System.out.println("Fix this.");
 		}
 	}
 
@@ -41,9 +42,9 @@ public class PlugIt {
 		
 		if (i < vPlugins.size()) {
 			vResults = new Vector <String> ();
-			vResults.add(vPlugins.get(i).getName());
-			vResults.add(vPlugins.get(i).getDescription());
-			vResults.add(vPlugins.get(i).passed()+ "");
+			vResults.add("vPlugins.get(i).getName()");
+			vResults.add("vPlugins.get(i).getDescription()");
+			vResults.add("vPlugins.get(i).passed()" + "");
 		}
 
 		return vResults;
