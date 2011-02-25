@@ -53,15 +53,16 @@ public class PlugIt {
 	}
 
 	/**
-	 * Get the name of the plug-in, its description and the result obtained
+	 * Get the name of the plug-in, its description, results obtained and flag
 	 * @param i plug-in index
-	 * @return three literals wrapped using Vector
+	 * @return four literals wrapped using Vector
 	 */
 	public Vector <String> getResults(int i) {
 		Vector <String> vResults = null;
 		Method m1 = null;
 		Method m2 = null;
 		Method m3 = null;
+		Method m4 = null;
 		Object o = null;
 
 		if (i < vPlugins.size()) {
@@ -70,11 +71,13 @@ public class PlugIt {
 				m1 = o.getClass().getMethod("getName");
 				m2 = o.getClass().getMethod("getDescription");
 				m3 = o.getClass().getMethod("passed");
+				m4 = o.getClass().getMethod("getResNotes");
 
 				vResults = new Vector <String> ();
 				vResults.add(m1.invoke(o).toString());
 				vResults.add(m2.invoke(o).toString());
 				vResults.add(m3.invoke(o) + "");
+				vResults.add(m4.invoke(o).toString());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
