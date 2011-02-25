@@ -16,7 +16,8 @@ public class PlugIt {
 	/**
 	 * 
 	 */
-	public static void run() {
+	public //static 
+	void run() {
 		for (int i=0; i < vPlugins.size(); i++) {
 			if (!vPlugins.get(i).getStatus().matches("Ready"))
 				vPlugins.get(i).reset();
@@ -32,7 +33,8 @@ public class PlugIt {
 	 * @param i
 	 * @return
 	 */
-	public static Vector <String> getResults(int i) {
+	public //static 
+	Vector <String> getResults(int i) {
 		Vector <String> vResults = null;
 		
 		if (i < vPlugins.size()) {
@@ -49,7 +51,8 @@ public class PlugIt {
 	 * 
 	 * @return
 	 */
-	public static int size() {
+	public //static 
+	int size() {
 		return vPlugins.size();
 	}
 	
@@ -57,7 +60,8 @@ public class PlugIt {
 	 * 
 	 * @param sPluginsDir
 	 */
-	public static void test(String sPluginsDir) {
+	public //static 
+	void test(String sPluginsDir) {
 		PluginManager pm = new PluginManager(sPluginsDir);
 		pm.load();
 		run();
@@ -71,8 +75,8 @@ public class PlugIt {
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		test("C:\\job\\workspace\\PlugIt\\plugins\\");
-	}
+	//public static void main(String[] args) {
+	//	test("C:\\job\\workspace\\PlugIt\\plugins\\");
+	//}
 
 }
