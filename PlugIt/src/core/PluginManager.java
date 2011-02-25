@@ -16,7 +16,7 @@ import xmlutils.XMLUtils;
 
 /**
  * @author DGalassi
- * All plugins made available through PlugIt are managed using this component.
+ * All plug-ins made available through PlugIt are managed using this component.
  */
 public class PluginManager {
 
@@ -54,7 +54,7 @@ public class PluginManager {
 	 * @param c plugin to validate
 	 * @return true if the plugin checks out
 	 */
-	private boolean implementsInt (Class[] c) {
+	private boolean implementsInt (Class [] c) {
 		boolean passed = false;
 
 		for (int i=0; i < c.length; i++)
@@ -65,7 +65,7 @@ public class PluginManager {
 	}
 	
 	/**
-	 * Plugin loader class
+	 * Plug-in loader class
 	 * @return Number of plug-ins loaded.
 	 */
 	public int load() {
@@ -80,7 +80,6 @@ public class PluginManager {
 		URL[]			urls = null;
 		ClassLoader		cl = null;
 		Class			cls = null;
-		//Plugin			ip = null;
 		Object			oP = null;
 
 		//purging all previously loaded plugins
@@ -109,7 +108,6 @@ public class PluginManager {
 					urls = new URL[]{uJAR};
 					cl = new URLClassLoader(urls);
 					cls = cl.loadClass(sPackage + "." + sPlugin);
-					//ip = (Plugin) cls.newInstance();
 					oP = cls.newInstance();
 
 					//adding the plugin if it checks out
@@ -143,7 +141,7 @@ public class PluginManager {
 	}
 
 	/**
-	 * Plugins cleanup
+	 * Plug-ins cleanup
 	 * @return Number of plug-ins yet to be unloaded.
 	 */
 	public int unload() {
@@ -156,7 +154,7 @@ public class PluginManager {
 	}
 
 	/**
-	 * Wrapper when plugin reloads are required
+	 * Wrapper when plug-in reloads are required
 	 * @return Number of plug-ins reloaded.
 	 */
 	public int reload() {
@@ -167,6 +165,9 @@ public class PluginManager {
 		return PlugIt.vPlugins.size();
 	}
 
+	/**
+	 * Prints the names of the plug-ins loaded
+	 */
 	public void listPlugins() {
 		for (int i=0; i<PlugIt.vPlugins.size(); i++)
 			System.out.println(PlugIt.vPlugins.get(0).getClass().getName());

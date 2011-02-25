@@ -3,95 +3,117 @@
  */
 package core;
 
+import java.lang.reflect.Method;
 import java.util.Vector;
 
 /**
  * @author DGalassi
- * Yes, this is a limited functionality plugin-based execution engine.
+ * Yes, this is a limited functionality plug-in based execution engine.
  */
 public class PlugIt {
 
 	protected static Vector <Object> vPlugins = new Vector <Object> ();
 	protected PluginManager pm = null;
 
-
 	/**
-	 * 
+	 * Executes sequencially each plugin
 	 */
-	public //static 
-	void run() {
+	public void run() {
+		String sStat = null;
+		Method m1 = null;
+		Method m2 = null;
+		Method m3 = null;
+		Method m4 = null;
+		Object o = null;
+
 		for (int i=0; i < vPlugins.size(); i++) {
-//			if (!(vPlugins.get(i)).getStatus().matches("Ready"))
-//				vPlugins.get(i).reset();
-//			System.out.println(vPlugins.get(i).getStatus());
-//			vPlugins.get(i).run();
-//			System.out.println(vPlugins.get(i).passed());
-//			System.out.println(vPlugins.get(i).getStatus());
-			System.out.println("Fix this.");
+			try {
+				o = vPlugins.get(i);
+				m1 = o.getClass().getMethod("getStatus");
+				m2 = o.getClass().getMethod("reset");
+				m3 = o.getClass().getMethod("run");
+				m4 = o.getClass().getMethod("passed");
+				sStat = m1.invoke(vPlugins.get(i)).toString();
+				if (!sStat.matches("Ready"))
+					m2.invoke(o);
+				m3.invoke(o);
+				//prints true if the test passed
+				System.out.println(m4.invoke(o));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+
+		o = null;
+		m1 = null;
+		m2 = null;
+		m3 = null;
+		m4 = null;
+		sStat = null;
 	}
 
 	/**
-	 * 
-	 * @param i
-	 * @return
+	 * Get the name of the plug-in, its description and the result obtained
+	 * @param i plug-in index
+	 * @return three literals wrapped using Vector
 	 */
-	public //static 
-	Vector <String> getResults(int i) {
+	public Vector <String> getResults(int i) {
 		Vector <String> vResults = null;
-		
+		Method m1 = null;
+		Method m2 = null;
+		Method m3 = null;
+		Object o = null;
+
 		if (i < vPlugins.size()) {
-			vResults = new Vector <String> ();
-			vResults.add("vPlugins.get(i).getName()");
-			vResults.add("vPlugins.get(i).getDescription()");
-			vResults.add("vPlugins.get(i).passed()" + "");
+			o = vPlugins.get(i);
+			try {
+				m1 = o.getClass().getMethod("getName");
+				m2 = o.getClass().getMethod("getDescription");
+				m3 = o.getClass().getMethod("passed");
+
+				vResults = new Vector <String> ();
+				vResults.add(m1.invoke(o).toString());
+				vResults.add(m2.invoke(o).toString());
+				vResults.add(m3.invoke(o) + "");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		return vResults;
 	}
 
 	/**
-	 * 
+	 * Exposes the number of available plug-ins
 	 * @return
 	 */
-	public //static 
-	int size() {
+	public int size() {
 		return vPlugins.size();
 	}
-	
-	/**
-	 * 
-	 * @param sPluginsDir
-	 */
-	public //static 
-	void test(String sPluginsDir) {
 
+	/**
+	 * Unit test method
+	 * @param sPluginsDir absolute path where plug-ins are stored 
+	 */
+	public void test(String sPluginsDir) {
 		pm = new PluginManager(sPluginsDir);
-
 		pm.load();
-		System.out.println("in1 = " + size());
-
-		run();
-
-//		for (int i=0; i<size(); i++)
-//			getResults(0);
-//
-//		pm.unload();
-//		pm = null;
-	}
-
-	public //static 
-	PlugIt(String sPluginsDir) {
-		test("C:\\job\\workspace\\PlugIt\\plugins\\");
-		System.out.println("in2 = " + size());
 	}
 
 	/**
-	 * 
-	 * @param args
+	 * Unloads all plug-ins
 	 */
-	//public static void main(String[] args) {
-	//	test("C:\\job\\workspace\\PlugIt\\plugins\\");
-	//}
+	public void cleanup() {
+		pm.unload();
+		pm = null;
+	}
 
+	/**
+	 * Constructor
+	 * @param sPluginsDir Absolute path 
+	 */
+	public PlugIt(String sPluginsDir) {
+		pm = new PluginManager(sPluginsDir);
+		pm.load();
+	}
 }
