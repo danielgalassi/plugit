@@ -12,6 +12,8 @@ import java.util.Vector;
 public class PlugIt {
 
 	protected static Vector <Plugin> vPlugins = new Vector <Plugin> ();
+	protected PluginManager pm = null;
+
 
 	/**
 	 * 
@@ -62,13 +64,25 @@ public class PlugIt {
 	 */
 	public //static 
 	void test(String sPluginsDir) {
-		PluginManager pm = new PluginManager(sPluginsDir);
+
+		pm = new PluginManager(sPluginsDir);
+
 		pm.load();
+		System.out.println("in1 = " + size());
+
 		run();
-		for (int i=0; i<size(); i++)
-			getResults(0);
-		pm.unload();
-		pm = null;
+
+//		for (int i=0; i<size(); i++)
+//			getResults(0);
+//
+//		pm.unload();
+//		pm = null;
+	}
+
+	public //static 
+	PlugIt(String sPluginsDir) {
+		test("C:\\job\\workspace\\PlugIt\\plugins\\");
+		System.out.println("in2 = " + size());
 	}
 
 	/**
