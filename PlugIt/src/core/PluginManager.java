@@ -35,7 +35,7 @@ public class PluginManager {
 	 * @return A W3C DOM document of the configuration file. 
 	 */
 	private Document verifyConfig() {
-		File		fConfig = new File("./config/config.xml");
+		File		fConfig = new File(sPluginsDir + "/config/config.xml");
 		Document	dConfig = null;
 
 		if (fConfig.exists()) {
@@ -43,6 +43,8 @@ public class PluginManager {
 			if (dConfig.getElementsByTagName("Plugin").getLength() == 0)
 				dConfig = null;
 		}
+		else
+			System.out.println("Configuration File Doesn't Exist");
 
 		return dConfig;
 	}
@@ -86,7 +88,9 @@ public class PluginManager {
 		}
 
 		//configuration file not empty? then load the plugins!
-		if (dConfig != null) {
+		if (dConfig == null) 
+			System.out.println("Empty configuration file!");
+		else {
 			nlPlugins = dConfig.getElementsByTagName("Plugin");
 			iPlugins = nlPlugins.getLength();
 			System.out.println("No of plugins to load: " + iPlugins);
