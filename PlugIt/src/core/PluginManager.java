@@ -119,10 +119,7 @@ public class PluginManager {
 							PlugIt.vPlugins = new Vector <Object> ();
 						PlugIt.vPlugins.add(ip);
 						System.out.println("Plugin loaded: " + 
-								ip.getClass().getMethod("getName") + ".");
-						System.out.println("Plugin loaded2: " + 
 								ip.getClass().getName());
-								//ip.getName());
 					}
 
 				} catch (Exception e) {
