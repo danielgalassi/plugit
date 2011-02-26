@@ -71,13 +71,14 @@ public class PlugIt {
 				m1 = o.getClass().getMethod("getName");
 				m2 = o.getClass().getMethod("getDescription");
 				m3 = o.getClass().getMethod("passed");
-				m4 = o.getClass().getMethod("getResNotes");
+				//m4 = o.getClass().getMethod("getResNotes");
 
 				vResults = new Vector <String> ();
 				vResults.add(m1.invoke(o).toString());
 				vResults.add(m2.invoke(o).toString());
 				vResults.add(m3.invoke(o) + "");
-				vResults.add(m4.invoke(o).toString());
+				//vResults.add(m4.invoke(o).toString());
+				vResults.add(m2.invoke(o).toString());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
