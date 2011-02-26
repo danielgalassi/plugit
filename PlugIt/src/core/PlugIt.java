@@ -68,9 +68,9 @@ public class PlugIt {
 		if (i < vPlugins.size()) {
 			o = vPlugins.get(i);
 			try {
+				m3 = o.getClass().getMethod("passed");
 				m1 = o.getClass().getMethod("getName");
 				m2 = o.getClass().getMethod("getDescription");
-				m3 = o.getClass().getMethod("passed");
 				//m4 = o.getClass().getMethod("getResNotes");
 
 				vResults = new Vector <String> ();
@@ -80,6 +80,11 @@ public class PlugIt {
 				//vResults.add(m4.invoke(o).toString());
 				vResults.add(m2.invoke(o).toString());
 			} catch (Exception e) {
+				vResults.removeAllElements();
+				vResults.add("");
+				vResults.add("");
+				vResults.add("false");
+				vResults.add("Fatal error. Exception raised.");
 				e.printStackTrace();
 			}
 		}
