@@ -53,7 +53,6 @@ public class PluginManager {
 	 * Validates that each plugin class implements core.Plugin interface
 	 * @param c plugin to validate
 	 * @return true if the plugin checks out
-	 * @deprecated 
 	 */
 	private boolean implementsInt (Class [] c) {
 		boolean passed = false;
@@ -84,9 +83,8 @@ public class PluginManager {
 		Object			oP = null;
 
 		//purging all previously loaded plugins
-		if (PlugIt.vPlugins.size() != 0) {
+		if (PlugIt.vPlugins.size() != 0)
 			unload();
-		}
 
 		//configuration file not empty? then load the plugins!
 		if (dConfig == null) 
@@ -112,12 +110,7 @@ public class PluginManager {
 					oP = cls.newInstance();
 
 					//adding the plugin if it checks out
-					//implementsInt() now deprecated. To be validated.
-					//if (implementsInt(oP.getClass().getInterfaces())) {
-					//test
-					//if (oP instanceof Plugin) {
-					//or 
-					if (Plugin.class.isInstance(oP)) {
+					if (implementsInt(oP.getClass().getInterfaces())) {
 						//creating the instance if not defined before
 						if (PlugIt.vPlugins == null)
 							PlugIt.vPlugins = new Vector <Object> ();
@@ -125,6 +118,8 @@ public class PluginManager {
 						System.out.println("Plugin loaded: " + 
 								oP.getClass().getName());
 					}
+					else 
+						System.out.println("Plugin interface missing");
 
 				} catch (Exception e) {
 					e.printStackTrace();
