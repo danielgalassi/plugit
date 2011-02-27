@@ -63,7 +63,7 @@ public class PluginManager {
 
 		return passed;
 	}
-	
+
 	/**
 	 * Plug-in loader class
 	 * @return Number of plug-ins loaded.
