@@ -65,30 +65,40 @@ public class PlugIt {
 		Method m4 = null;
 		Object o = null;
 
-		if (i < vPlugins.size()) {
+		if (i >= 0 && i < vPlugins.size()) {
 			o = vPlugins.get(i);
 			try {
-				m3 = o.getClass().getMethod("passed");
 				m1 = o.getClass().getMethod("getName");
 				m2 = o.getClass().getMethod("getDescription");
-				//m4 = o.getClass().getMethod("getResNotes");
-
 				vResults = new Vector <String> ();
 				vResults.add(m1.invoke(o).toString());
-				vResults.add(m2.invoke(o).toString());
-				vResults.add(m3.invoke(o) + "");
-				//vResults.add(m4.invoke(o).toString());
 				vResults.add(m2.invoke(o).toString());
 			} catch (Exception e) {
 				vResults.removeAllElements();
 				vResults.add("");
 				vResults.add("");
+				//e.printStackTrace();
+			}
+
+			try {
+				m3 = o.getClass().getMethod("passed");
+				vResults.add(m3.invoke(o) + "");
+			} catch (Exception e) {
 				vResults.add("false");
+				//e.printStackTrace();
+			}
+
+
+			try {
+				//m4 = o.getClass().getMethod("getResNotes");
+				//vResults.add(m4.invoke(o).toString());
+				vResults.add(m2.invoke(o).toString());
+			} catch (Exception e) {
 				vResults.add("Fatal error. Exception raised.");
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
-
+		
 		return vResults;
 	}
 
