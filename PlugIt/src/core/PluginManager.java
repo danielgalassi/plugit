@@ -53,6 +53,7 @@ public class PluginManager {
 	 * Validates that each plugin class implements core.Plugin interface
 	 * @param c plugin to validate
 	 * @return true if the plugin checks out
+	 * @deprecated 
 	 */
 	private boolean implementsInt (Class [] c) {
 		boolean passed = false;
@@ -111,7 +112,12 @@ public class PluginManager {
 					oP = cls.newInstance();
 
 					//adding the plugin if it checks out
-					if (implementsInt(oP.getClass().getInterfaces())) {
+					//implementsInt() now deprecated. To be validated.
+					//if (implementsInt(oP.getClass().getInterfaces())) {
+					//test
+					//if (oP instanceof Plugin) {
+					//or 
+					if (Plugin.class.isInstance(oP)) {
 						//creating the instance if not defined before
 						if (PlugIt.vPlugins == null)
 							PlugIt.vPlugins = new Vector <Object> ();
