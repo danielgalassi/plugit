@@ -1,6 +1,7 @@
 package xmlutils;
 
 import java.io.File;
+import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,14 +18,13 @@ import org.w3c.dom.Document;
 
 /**
  * XML Utilities class
- * @author DGalassi
+ * @author danielgalassi@gmail.com
  *
  */
 public class XMLUtils {
 
 	public static void publishException(Exception errMsg){
-		System.out.println("Error: " + errMsg.getClass() + 
-				"\tDescription: " + errMsg.getMessage());
+		System.out.println("Error: " + errMsg.getClass() + "\tDescription: " + errMsg.getMessage());
 	}
 
 	/**
@@ -35,10 +35,10 @@ public class XMLUtils {
 		DocumentBuilder builder = null;
 		Document doc = null;
 		try {
-			builder = DocumentBuilderFactory.newInstance().
-			newDocumentBuilder();
+			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = builder.newDocument();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return doc;
 	}
@@ -55,28 +55,32 @@ public class XMLUtils {
 
 		try {
 			docBXML = dBFXML.newDocumentBuilder();
-		} catch(Exception e) {publishException(e);}
+		} catch(Exception e) {
+			publishException(e);
+		}
 
 		try {
 			docXML = docBXML.parse(filename);
-		} catch(Exception e) {publishException(e);}
+		} catch(Exception e) {
+			publishException(e);
+		}
+
 		return docXML;
 	}
 
 	/**
-	 * Save a DOM document as a file
+	 * Store a DOM document as a file
 	 * @param doc
 	 * @param filename
 	 */
 	public static void Document2File(Document doc, String filename) {
+		Source source = new DOMSource(doc);
+
+		File XMLFile = new File(filename);
+		Result result = new StreamResult(XMLFile);
 		try {
-			Source source = new DOMSource(doc);
 
-			File XMLFile = new File(filename);
-			Result result = new StreamResult(XMLFile);
-
-			Transformer xformer = TransformerFactory.newInstance().
-			newTransformer();
+			Transformer xformer = TransformerFactory.newInstance().newTransformer();
 			xformer.transform(source, result);
 		} catch (TransformerConfigurationException e) {
 			System.out.println(e);
@@ -92,8 +96,8 @@ public class XMLUtils {
 	 * @param strRESFile
 	 */
 	public static void xsl4Files(String strXMLFile,
-			String strXSLFile,
-			String strRESFile){
+								String strXSLFile,
+								String strRESFile){
 		File fXMLFile = new File(strXMLFile);
 		File fXSLFile = new File(strXSLFile);
 		File fResult = new File(strRESFile);
@@ -103,8 +107,37 @@ public class XMLUtils {
 		Result result = new javax.xml.transform.stream.StreamResult(fResult);
 		TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance();
 		try {trans = transFact.newTransformer(xsltSource);
-		} catch (TransformerConfigurationException tcE) {publishException(tcE);}
+		} catch (TransformerConfigurationException tcE) {System.out.println("3"); publishException(tcE);}
 		try {trans.transform(xmlSource, result);
-		} catch (TransformerException tE) {publishException(tE);}
+		} catch (TransformerException tE) {System.out.println("4"); publishException(tE);}
+	}
+
+	/**
+	 * Transform an XML file using an XSL file stored within the jar file
+	 * @param strXMLFile
+	 * @param inputsXSLFile
+	 * @param strRESFile
+	 */
+	public static void xsl4Files(String strXMLFile,
+								InputStream inputsXSLFile,
+								String strRESFile){
+		File fXMLFile = new File(strXMLFile);
+		File fResult = new File(strRESFile);
+		Source xmlSource = null;
+		Source xsltSource = null;
+		Transformer trans = null;
+		TransformerFactory transFact = null;
+		Result result = null;
+
+		xmlSource = new javax.xml.transform.stream.StreamSource(fXMLFile);
+		xsltSource = new javax.xml.transform.stream.StreamSource(inputsXSLFile);
+		result = new javax.xml.transform.stream.StreamResult(fResult);
+		transFact = javax.xml.transform.TransformerFactory.newInstance();
+		try {trans = transFact.newTransformer(xsltSource);
+		} catch (TransformerConfigurationException tcE) {
+			System.out.println("3"); publishException(tcE);}
+		try {trans.transform(xmlSource, result);
+		} catch (TransformerException tE) {
+			System.out.println("4"); publishException(tE);}
 	}
 }

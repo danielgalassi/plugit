@@ -4,7 +4,7 @@
 package core;
 
 /**
- * @author DGalassi
+ * @author danielgalassi@gmail.com
  *
  */
 public interface Plugin {

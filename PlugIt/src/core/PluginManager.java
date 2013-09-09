@@ -15,8 +15,8 @@ import org.w3c.dom.NodeList;
 import xmlutils.XMLUtils;
 
 /**
- * @author DGalassi
- * All plug-ins made available through PlugIt are managed using this component.
+ * @author danielgalassi@gmail.com
+ * All plug-in's made available through PlugIt are managed using this component.
  */
 public class PluginManager {
 

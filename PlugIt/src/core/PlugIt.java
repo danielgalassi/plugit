@@ -7,8 +7,8 @@ import java.lang.reflect.Method;
 import java.util.Vector;
 
 /**
- * @author DGalassi
- * Yes, this is a limited functionality plug-in based execution engine.
+ * @author danielgalassi@gmail.com
+ * Yes, this is a limited functionality plugin-based execution engine.
  */
 public class PlugIt {
 
